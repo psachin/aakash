@@ -23,7 +23,7 @@ def gitDelete():
     for deletedfile in deleted:
         gitdelete='git rm ' + deletedfile
         os.system(gitdelete)
-        gitCommit(commit_msg)
+        #gitCommit(commit_msg)
 
 def gitCached():
     cached = Popen('git ls-files --cached',shell=True, stdout=PIPE).stdout.readlines()
@@ -31,18 +31,18 @@ def gitCached():
         print cachedfile
 
 def gitAdd(x,msg):
-    print msg
+    #print msg
     gitadd = 'git add ' + x
     os.system(gitadd)
-    gitCommit(msg)
+#    gitCommit(msg)
 
-def gitCommit(msg):
+def gitCommit():
     #print "In function gitCommit " + msg
     myWeek = time.strftime("%a")
     myDate = time.strftime("%d-%B-%Y")
     myTime = time.strftime("%H-%M-%S")
     timeStamp='Commit on: ' + myWeek + ' ' + myDate + ' ' + myTime
-    gitcommit='git commit -m ' + "'" + timeStamp + ' ' + '\nAction: ' + msg + "'" 
+    gitcommit='git commit -m ' + "'" + timeStamp + ' ' +  "'" 
     os.system(gitcommit)
     
 def gitstart():
@@ -55,54 +55,12 @@ def gitstart():
         gitUntracked()
         gitModified()
         gitDelete()
-        # gitCached()
+        gitCommit()
+
 
         
 while True:
     gitstart() 
-    time.sleep(5)
+    time.sleep(15)
 
 
-#gitUntracked()
-#gitCached()
-
-'''
-def sample():
-    URL='www.google.com'
-    callfunction(URL)
-
-def callfunction(x):
-    print x
-
-sample()
-
-'''
-
-
-#print bashout[1]
-            
-
-
-
-    # captures git status from stdout, 'if' statement checks line2 from 
-    # stdout with standard commit message
-
-
-'''
-
-if not bashout[1].strip() == 'nothing to commit (working directory clean)':
-        userDeleted = Popen('git ls-files --deleted',shell=True, stdout=PIPE).stdout.readlines()
-        for i in userDeleted:                                #for more than one deleted files                   
-            eachfile = i.strip()
-            rm = 'git rm ' + eachfile                        #adding all deleted files to staging area
-            os.system(rm)             
-        os.system('git add .')                               #adding all new files 
-        commit = 'git commit -am ' + "'" + eachfile + "'"    #adding modified files
-        os.system(commit)
-        time.sleep(5)                                        #delay in seconds
-    
-else:    
-    os.system('git add .')
-    os.system("git commit -am 'added all files'")
-
-'''
